@@ -1,7 +1,7 @@
 {
   "main": "src/scripts/index.js",
   "scripts": {
-    "start": "webpack serve --open --config webpack.dev.ks",
+    "start": "webpack serve --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js"
   },
   "devDependencies": {
