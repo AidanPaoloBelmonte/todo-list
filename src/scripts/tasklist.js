@@ -1,11 +1,11 @@
 class tasklist {
   title = "";
   desc = "";
+  category = "";
   duedate = new Date();
-  duetime = new Date();
   taskGroups = [];
 
-  id = "";
+  #id = "";
 
   constructor(title, duedate, duetime) {
     if (typeof title === "object") {
@@ -13,14 +13,15 @@ class tasklist {
       else return undefined;
       if (Object.hasOwn(title, "desc")) this.desc = title.desc;
       else return undefined;
-      if (Object.hasOwn(title, "duedate")) this.title = title.duedate;
+      if (Object.hasOwn(title, "category")) this.category = title.category;
       else return undefined;
-      if (Object.hasOwn(title, "duetime")) this.duetime = title.duetime;
+      if (Object.hasOwn(title, "duedate")) this.title = title.duedate;
       else return undefined;
       if (Object.hasOwn(title, "taskGroups"))
         this.taskGroups = title.taskGroups;
       else return undefined;
       if (Object.hasOwn(title, "id")) this.id = title.id;
+      else return undefined;
     } else {
       this.title = title;
       this.duedate = duedate;
@@ -54,10 +55,20 @@ class tasklist {
     this.taskGroups.push(new taskGroup(title));
   }
 
+  areTasksFinished() {
+    return this.taskGroups.every((group) => {
+      group.areTasksFinished();
+    });
+  }
+
   getRemainingTime() {
     let remaining = new Date().getTime() - this.duedate.getTime();
 
     return new Date(remaining);
+  }
+
+  getID() {
+    return this.id;
   }
 
   save() {
@@ -83,6 +94,12 @@ class taskGroup {
 
   addTask(task) {
     this.tasks.push(task);
+  }
+
+  areTasksFinished() {
+    return this.tasks.every((task) => {
+      task.isFinished;
+    });
   }
 }
 
