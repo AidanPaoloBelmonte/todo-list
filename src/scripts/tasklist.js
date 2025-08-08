@@ -1,4 +1,10 @@
-class tasklist {
+if (module.hot) {
+  module.hot.accept();
+}
+
+import { formatDistanceToNow } from "date-fns";
+
+class TaskList {
   title = "";
   desc = "";
   category = "";
@@ -7,7 +13,7 @@ class tasklist {
 
   #id = "";
 
-  constructor(title, duedate, duetime) {
+  constructor(title, duedate) {
     if (typeof title === "object") {
       if (Object.hasOwn(title, "title")) this.title = title.title;
       else return undefined;
@@ -25,9 +31,8 @@ class tasklist {
     } else {
       this.title = title;
       this.duedate = duedate;
-      this.duetime = duetime;
 
-      this.taskGroups.push(new taskGroup("tasks"));
+      this.taskGroups.push(new TaskGroup("tasks"));
 
       this.id = crypto.randomUUID();
     }
@@ -35,16 +40,14 @@ class tasklist {
 
   toggleTaskCheck(group, index) {
     this.taskGroups[group].toggleTaskCheck(index);
-
-    save();
   }
 
   removeTask(group, index) {
     this.taskGroups[group].removeTask(index);
   }
 
-  addTask(group, index) {
-    this.taskGroups[group].addTask(index);
+  addTask(group, desc) {
+    this.taskGroups[group].addTask(new Task(desc));
   }
 
   removeGroup(group) {
@@ -52,22 +55,18 @@ class tasklist {
   }
 
   addGroup(title) {
-    this.taskGroups.push(new taskGroup(title));
+    this.taskGroups.push(new TaskGroup(title));
   }
 
   areTasksFinished() {
-    return this.taskGroups.every((group) => {
-      group.areTasksFinished();
-    });
+    return this.taskGroups.every((group) => group.areTasksFinished());
   }
 
   getRemainingTime() {
-    let remaining = new Date().getTime() - this.duedate.getTime();
-
-    return new Date(remaining);
+    return formatDistanceToNow(this.duedate);
   }
 
-  getID() {
+  get ID() {
     return this.id;
   }
 
@@ -76,12 +75,12 @@ class tasklist {
   }
 }
 
-class taskGroup {
+class TaskGroup {
   title = "";
   tasks = [];
 
   constructor(title) {
-    this.title = "";
+    this.title = title;
   }
 
   toggleTaskCheck(index) {
@@ -97,13 +96,11 @@ class taskGroup {
   }
 
   areTasksFinished() {
-    return this.tasks.every((task) => {
-      task.isFinished;
-    });
+    return this.tasks.every((task) => task.isFinished);
   }
 }
 
-class task {
+class Task {
   desc = "";
   isFinished = false;
 
@@ -115,3 +112,5 @@ class task {
     this.isFinished = !this.isFinished;
   }
 }
+
+export { TaskList };
