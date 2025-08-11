@@ -33,32 +33,36 @@ function generateTaskListDisplay(taskList) {
   newList.querySelector("#overview > p").textContent = taskList.desc;
 
   const listArea = newList.querySelector("#task-list");
-  taskList.taskGroups.map((group) => {
-    listArea.appendChild(generateTaskGroupDisplay(group));
+  taskList.taskGroups.map((group, i) => {
+    listArea.appendChild(generateTaskGroupDisplay(group, i));
   });
 
   contentArea.appendChild(newList);
 }
 
-function generateTaskGroupDisplay(taskGroup) {
+function generateTaskGroupDisplay(taskGroup, groupIndex) {
   const newTaskGroup = document.createElement("div");
   const taskGroupTitle = document.createElement("h2");
 
   newTaskGroup.classList.add("task-group");
+  newTaskGroup.dataset.index = groupIndex;
   taskGroupTitle.textContent = taskGroup.title;
   newTaskGroup.appendChild(taskGroupTitle);
 
-  taskGroup.tasks.map((task) => {
-    newTaskGroup.appendChild(generateTaskDisplay(task));
+  taskGroup.tasks.map((task, i) => {
+    newTaskGroup.appendChild(generateTaskDisplay(task, i, groupIndex));
   });
 
   return newTaskGroup;
 }
 
-function generateTaskDisplay(task) {
+function generateTaskDisplay(task, taskIndex, groupIndex) {
   const newTask = taskTemplate.content.cloneNode(true);
 
-  newTask.querySelector("input").checked = task.isFinished;
+  const checkbox = newTask.querySelector("input");
+  checkbox.checked = task.isFinished;
+  checkbox.dataset.index = taskIndex;
+  checkbox.dataset.groupIndex = groupIndex;
 
   newTask.querySelector("span").textContent = task.desc;
 
