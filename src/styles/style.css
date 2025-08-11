@@ -78,7 +78,7 @@ body {
     margin: 6px;
 }
 
-/* Content*/
+/* Content */
 #content {
     align-self: center;
 
@@ -94,11 +94,12 @@ body {
 }
 
 #due {
-    flex: 0 200px;
+    flex: 0 150px;
 
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     text-align: right;
 }
@@ -111,7 +112,7 @@ body {
     }
 }
 
-.taskGroup,
+.task-group,
 .task {
     margin-left: 40px;
 }

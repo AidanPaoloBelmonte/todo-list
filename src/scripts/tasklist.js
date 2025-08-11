@@ -62,6 +62,16 @@ class TaskList {
     return this.taskGroups.every((group) => group.areTasksFinished());
   }
 
+  getFormattedDueDate() {
+    return this.duedate.toLocaleDateString(navigator.language, {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  }
+
   getRemainingTime() {
     return formatDistanceToNow(this.duedate);
   }
@@ -113,4 +123,4 @@ class Task {
   }
 }
 
-export { TaskList };
+export { TaskList, TaskGroup, Task };
