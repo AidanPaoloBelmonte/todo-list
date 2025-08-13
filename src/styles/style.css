@@ -117,6 +117,7 @@ body {
     margin-left: 40px;
 }
 
-.task-check:checked + span {
+.task-check:checked + span,
+.finished {
     text-decoration: line-through;
 }

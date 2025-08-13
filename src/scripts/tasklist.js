@@ -58,6 +58,10 @@ class TaskList {
     this.taskGroups.push(new TaskGroup(title));
   }
 
+  isTaskGroupFinished(index) {
+    return this.taskGroups[index].areTasksFinished();
+  }
+
   areTasksFinished() {
     return this.taskGroups.every((group) => group.areTasksFinished());
   }

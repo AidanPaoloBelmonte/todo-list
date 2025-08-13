@@ -45,10 +45,10 @@ function generateTaskListDisplay(taskList) {
       return;
     }
 
-    if (
-      !e.target.parentElement.parentElement.parentElement.dataset.id ===
-      taskList.id
-    ) {
+    const taskGroupDisplay = e.target.parentElement.parentElement;
+    const taskListDisplay = taskGroupDisplay.parentElement;
+
+    if (!taskListDisplay.dataset.id === taskList.id) {
       return;
     }
 
@@ -56,7 +56,33 @@ function generateTaskListDisplay(taskList) {
     let task = e.target.dataset.index;
 
     taskList.toggleTaskCheck(group, task);
-    console.log(taskList);
+
+    const isGroupFinished = taskList.isTaskGroupFinished(group);
+    const isListFinished = taskList.areTasksFinished(group);
+
+    const groupTitleDisplay = taskGroupDisplay.querySelector("h2");
+    const listTitleDisplay = taskListDisplay.querySelector("h1");
+    const groupHasLineThrough =
+      groupTitleDisplay.classList.contains("finished");
+    const listHasLineThrough = listTitleDisplay.classList.contains("finished");
+
+    if (isGroupFinished) {
+      if (!groupHasLineThrough) {
+        groupTitleDisplay.classList.add("finished");
+      }
+
+      if (!listHasLineThrough && isListFinished) {
+        listTitleDisplay.classList.add("finished");
+      }
+    } else {
+      if (groupHasLineThrough) {
+        groupTitleDisplay.classList.remove("finished");
+      }
+
+      if (listHasLineThrough && !isListFinished) {
+        listTitleDisplay.classList.remove("finished");
+      }
+    }
   });
 
   contentArea.appendChild(newList);
@@ -93,7 +119,7 @@ function generateTaskDisplay(task, groupIndex, taskIndex) {
 
 function clearContent() {
   while (contentArea.lastChild) {
-    contentArea.removeChild(content.ArealastChild);
+    contentArea.removeChild(contentArea.lastChild);
   }
 }
 

@@ -11,7 +11,7 @@ if (module.hot) {
 import "../styles/style.css";
 
 import { TaskList } from "./tasklist.js";
-import { generateTaskListDisplay } from "./display.js";
+import { generateTaskListDisplay, clearContent } from "./display.js";
 import sidebarHandler from "./sidebar.js";
 
 const sidebarButton = document.querySelector("#toggleSidebar");
@@ -29,6 +29,19 @@ taskList.addTask(1, "Collect some snow");
 taskList.addTask(1, "Build an Igloo");
 taskList.addTask(1, "Burn the Igloo!");
 
-console.log(taskList);
+let taskList2 = new TaskList("Experiment", new Date("January 11, 2029"));
+taskList2.desc = "What an experimental to-do list!";
 
-generateTaskListDisplay(taskList);
+taskList2.addTask(0, "Experiment what Gatos like to eat!");
+taskList2.addTask(0, "Get the happiness level a Gato may feel when being pet!");
+taskList2.addTask(0, "Let the Gato sleep in a comfy bed!");
+
+taskList2.addGroup("Part 2: Poiosn Waterloo");
+taskList2.addTask(1, "Collect some water");
+taskList2.addTask(1, "Concoct a poison");
+taskList2.addTask(1, "Treat the poison");
+taskList2.addTask(1, "Celebrate!");
+
+taskList2.toggleTaskCheck(1, 0);
+
+generateTaskListDisplay(taskList2);
