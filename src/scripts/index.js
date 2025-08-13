@@ -1,3 +1,13 @@
+if (module.hot) {
+  module.hot.accept("./index.js", function () {
+    console.log("Module updated!");
+  });
+
+  module.hot.accept("./display.js", function () {
+    console.log("Module updated!");
+  });
+}
+
 import "../styles/style.css";
 
 import { TaskList } from "./tasklist.js";
@@ -8,7 +18,7 @@ const sidebarButton = document.querySelector("#toggleSidebar");
 
 sidebarButton.addEventListener("click", sidebarHandler.toggle);
 
-const taskList = new TaskList("Sample", new Date("August 11, 2026"));
+let taskList = new TaskList("Sample", new Date("August 11, 2026"));
 taskList.desc = "This is just a sample task!";
 
 taskList.addTask(0, "Feed all of the Gatos!");

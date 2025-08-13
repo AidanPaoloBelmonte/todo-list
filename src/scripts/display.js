@@ -33,8 +33,30 @@ function generateTaskListDisplay(taskList) {
   newList.querySelector("#overview > p").textContent = taskList.desc;
 
   const listArea = newList.querySelector("#task-list");
+  listArea.dataset.id = taskList.ID;
   taskList.taskGroups.map((group, i) => {
-    listArea.appendChild(generateTaskGroupDisplay(group, i));
+    let taskGroupDisplay = generateTaskGroupDisplay(group, i);
+
+    listArea.appendChild(taskGroupDisplay);
+  });
+
+  listArea.addEventListener("click", (e) => {
+    if (!e.target.classList.contains("task-check")) {
+      return;
+    }
+
+    if (
+      !e.target.parentElement.parentElement.parentElement.dataset.id ===
+      taskList.id
+    ) {
+      return;
+    }
+
+    let group = e.target.dataset.groupIndex;
+    let task = e.target.dataset.index;
+
+    taskList.toggleTaskCheck(group, task);
+    console.log(taskList);
   });
 
   contentArea.appendChild(newList);
@@ -50,19 +72,19 @@ function generateTaskGroupDisplay(taskGroup, groupIndex) {
   newTaskGroup.appendChild(taskGroupTitle);
 
   taskGroup.tasks.map((task, i) => {
-    newTaskGroup.appendChild(generateTaskDisplay(task, i, groupIndex));
+    newTaskGroup.appendChild(generateTaskDisplay(task, groupIndex, i));
   });
 
   return newTaskGroup;
 }
 
-function generateTaskDisplay(task, taskIndex, groupIndex) {
+function generateTaskDisplay(task, groupIndex, taskIndex) {
   const newTask = taskTemplate.content.cloneNode(true);
 
   const checkbox = newTask.querySelector("input");
   checkbox.checked = task.isFinished;
-  checkbox.dataset.index = taskIndex;
   checkbox.dataset.groupIndex = groupIndex;
+  checkbox.dataset.index = taskIndex;
 
   newTask.querySelector("span").textContent = task.desc;
 
