@@ -35,7 +35,11 @@ function generateTaskListDisplay(taskList) {
   const listArea = newList.querySelector("#task-list");
   listArea.dataset.id = taskList.ID;
   taskList.taskGroups.map((group, i) => {
-    let taskGroupDisplay = generateTaskGroupDisplay(group, i);
+    let taskGroupDisplay = generateTaskGroupDisplay(
+      group,
+      i,
+      taskList.isTaskGroupFinished(i),
+    );
 
     listArea.appendChild(taskGroupDisplay);
   });
@@ -85,12 +89,23 @@ function generateTaskListDisplay(taskList) {
     }
   });
 
+  if (taskList.areTasksFinished()) {
+    listArea.querySelector("h1").classList.add("finished");
+  }
+
   contentArea.appendChild(newList);
 }
 
-function generateTaskGroupDisplay(taskGroup, groupIndex) {
+function generateTaskGroupDisplay(
+  taskGroup,
+  groupIndex,
+  isGroupFinished = false,
+) {
   const newTaskGroup = document.createElement("div");
   const taskGroupTitle = document.createElement("h2");
+  if (isGroupFinished) {
+    taskGroupTitle.classList.add("finished");
+  }
 
   newTaskGroup.classList.add("task-group");
   newTaskGroup.dataset.index = groupIndex;

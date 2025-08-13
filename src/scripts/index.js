@@ -42,6 +42,6 @@ taskList2.addTask(1, "Concoct a poison");
 taskList2.addTask(1, "Treat the poison");
 taskList2.addTask(1, "Celebrate!");
 
-taskList2.toggleTaskCheck(1, 0);
+taskList2.toggleTaskCheck(0, 0);
 
 generateTaskListDisplay(taskList2);
