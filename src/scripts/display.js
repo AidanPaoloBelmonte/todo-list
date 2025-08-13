@@ -27,8 +27,9 @@ function generateTaskListDisplay(taskList) {
   newList.querySelector("#due-remain > span").textContent =
     taskList.getRemainingTime();
 
-  newList.querySelector("#duedate").textContent =
-    taskList.getFormattedDueDate();
+  newList.querySelector("#duedate").textContent = taskList
+    .getFormattedDueDate()
+    .replace(" at ", "\r\n");
 
   newList.querySelector("#overview > p").textContent = taskList.desc;
 

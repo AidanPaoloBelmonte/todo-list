@@ -1,7 +1,7 @@
 * {
     box-sizing: border-box;
 
-    border: 1px solid gainsboro;
+    /*border: 1px solid gainsboro;*/
 }
 
 body {
@@ -94,12 +94,10 @@ body {
 }
 
 #due {
-    flex: 0 150px;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
 
     text-align: right;
 }
@@ -109,7 +107,12 @@ body {
 
     span {
         padding: 0px 4px;
+        margin-left: 4px;
     }
+}
+
+#duedate {
+    white-space: pre;
 }
 
 .task-group,
