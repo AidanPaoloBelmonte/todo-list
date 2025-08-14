@@ -41,19 +41,22 @@ class TaskList {
   #id = "";
 
   constructor(title, duedate, priority = 0, category = "") {
-    if (typeof title === "object") {
+    if (typeof title == "object") {
       if (Object.hasOwn(title, "title")) this.title = title.title;
       else return undefined;
       if (Object.hasOwn(title, "desc")) this.desc = title.desc;
       else return undefined;
-      if (Object.hasOwn(title, "priority")) this.desc = title.priority;
+      if (Object.hasOwn(title, "priority")) this.priority = title.priority;
       else return undefined;
       if (Object.hasOwn(title, "category")) this.category = title.category;
       else return undefined;
-      if (Object.hasOwn(title, "duedate")) this.title = title.duedate;
+      if (Object.hasOwn(title, "duedate"))
+        this.duedate = new Date(title.duedate);
       else return undefined;
       if (Object.hasOwn(title, "taskGroups"))
-        this.taskGroups = title.taskGroups;
+        this.taskGroups = title.taskGroups.map((group) =>
+          TaskGroup.parseJSON(group),
+        );
       else return undefined;
       if (Object.hasOwn(title, "id")) this.id = title.id;
       else return undefined;
@@ -71,6 +74,7 @@ class TaskList {
 
   toggleTaskCheck(group, index) {
     this.taskGroups[group].toggleTaskCheck(index);
+    this.save();
   }
 
   removeTask(group, index) {
@@ -128,6 +132,13 @@ class TaskGroup {
     this.title = title;
   }
 
+  static parseJSON(group) {
+    let g = new TaskGroup(group.title);
+
+    g.tasks = group.tasks.map((t) => Task.parseJSON(t));
+    return g;
+  }
+
   toggleTaskCheck(index) {
     this.tasks[index].toggleCheck();
   }
@@ -151,6 +162,15 @@ class Task {
 
   constructor(desc) {
     this.desc = desc;
+  }
+
+  static parseJSON(task) {
+    let t = new Task(task.desc);
+    if (task.isFinished) {
+      t.toggleCheck();
+    }
+
+    return t;
   }
 
   toggleCheck() {

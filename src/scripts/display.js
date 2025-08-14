@@ -16,7 +16,6 @@ const taskTemplate = document.querySelector("#task-template");
 
 function generateTaskListDisplay(taskList) {
   if ((!taskList) instanceof TaskList) {
-    console.log("Not a TaskList!");
     return -1;
   }
 

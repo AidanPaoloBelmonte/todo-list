@@ -8,6 +8,8 @@ if (module.hot) {
   });
 }
 
+localStorage.clear();
+
 import "../styles/style.css";
 
 import { TaskList } from "./tasklist.js";
@@ -43,5 +45,9 @@ taskList2.addTask(1, "Treat the poison");
 taskList2.addTask(1, "Celebrate!");
 
 taskList2.toggleTaskCheck(0, 0);
+taskList2.save();
 
-generateTaskListDisplay(taskList);
+let taskListSave = JSON.parse(localStorage[Object.keys(localStorage)[0]]);
+
+let loadedTaskList = new TaskList(taskListSave);
+generateTaskListDisplay(loadedTaskList);

@@ -149,6 +149,10 @@ body {
     margin-left: 40px;
 }
 
+.task-group {
+    margin-top: 24px;
+}
+
 .task-check:checked + span,
 .finished {
     text-decoration: line-through;
