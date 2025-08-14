@@ -158,4 +158,4 @@ class Task {
   }
 }
 
-export { TaskList, TaskGroup, Task };
+export { TaskList, TaskGroup, Task, Priority };

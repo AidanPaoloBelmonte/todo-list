@@ -108,8 +108,18 @@ body {
     border-radius: 16px;
 
     font-size: 0.8rem;
+    font-weight: bold;
 
-    background-color: aliceblue;
+    background-color: midnightblue;
+    color: white;
+}
+
+#priority.important {
+    background-color: burlywood;
+}
+
+#priority.urgent {
+    background-color: red;
 }
 
 #due {

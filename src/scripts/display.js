@@ -1,4 +1,4 @@
-import { TaskList } from "./tasklist";
+import { TaskList, Priority } from "./tasklist";
 
 const mainArea = document.querySelector("#main");
 const quickActionBar = document.querySelector("#quick-action");
@@ -23,7 +23,9 @@ function generateTaskListDisplay(taskList) {
   const newList = taskListTemplate.content.cloneNode(true);
 
   newList.querySelector("#title > h1").textContent = taskList.title;
-  newList.querySelector("#priority").textContent = taskList.priority;
+  const priorityDisplay = newList.querySelector("#priority");
+  priorityDisplay.textContent = taskList.priority;
+  priorityDisplay.classList.add(taskList.priority.toLowerCase());
 
   newList.querySelector("#due-remain > span").textContent =
     taskList.getRemainingTime();

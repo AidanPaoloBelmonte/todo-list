@@ -18,7 +18,7 @@ const sidebarButton = document.querySelector("#toggleSidebar");
 
 sidebarButton.addEventListener("click", sidebarHandler.toggle);
 
-let taskList = new TaskList("Sample", new Date("August 11, 2026"));
+let taskList = new TaskList("Sample", new Date("August 11, 2026"), 1);
 taskList.desc = "This is just a sample task!";
 
 taskList.addTask(0, "Feed all of the Gatos!");
