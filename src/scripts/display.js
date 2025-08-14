@@ -22,7 +22,8 @@ function generateTaskListDisplay(taskList) {
 
   const newList = taskListTemplate.content.cloneNode(true);
 
-  newList.querySelector("#details > h1").textContent = taskList.title;
+  newList.querySelector("#title > h1").textContent = taskList.title;
+  newList.querySelector("#priority").textContent = taskList.priority;
 
   newList.querySelector("#due-remain > span").textContent =
     taskList.getRemainingTime();

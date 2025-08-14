@@ -44,4 +44,4 @@ taskList2.addTask(1, "Celebrate!");
 
 taskList2.toggleTaskCheck(0, 0);
 
-generateTaskListDisplay(taskList2);
+generateTaskListDisplay(taskList);

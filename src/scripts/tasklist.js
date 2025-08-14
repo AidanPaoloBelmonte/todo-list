@@ -4,20 +4,49 @@ if (module.hot) {
 
 import { formatDistanceToNow } from "date-fns";
 
+class Priority {
+  static NORMAL = 0;
+  static IMPORTANT = 1;
+  static URGENT = 2;
+
+  static isValid(priority) {
+    return [Priority.NORMAL, Priority.IMPORTANT, Priority.URGENT].include(
+      priority,
+    );
+  }
+
+  static asString(value) {
+    if (Object.values(Priority).includes(value)) {
+      return Object.keys(Priority).reduce(function (acc, key) {
+        return ((acc[Priority[key]] = key), acc);
+      }, {})[value];
+    } else return "NORMAL";
+  }
+
+  static asValue(str) {
+    if (Object.keys(Priority).includes(str)) {
+      return Priority[str];
+    } else return 0;
+  }
+}
+
 class TaskList {
   title = "";
   desc = "";
+  priority = "";
   category = "";
   duedate = new Date();
   taskGroups = [];
 
   #id = "";
 
-  constructor(title, duedate) {
+  constructor(title, duedate, priority = 0, category = "") {
     if (typeof title === "object") {
       if (Object.hasOwn(title, "title")) this.title = title.title;
       else return undefined;
       if (Object.hasOwn(title, "desc")) this.desc = title.desc;
+      else return undefined;
+      if (Object.hasOwn(title, "priority")) this.desc = title.priority;
       else return undefined;
       if (Object.hasOwn(title, "category")) this.category = title.category;
       else return undefined;
@@ -31,6 +60,8 @@ class TaskList {
     } else {
       this.title = title;
       this.duedate = duedate;
+      this.priority = Priority.asString(priority);
+      this.category = category;
 
       this.taskGroups.push(new TaskGroup("tasks"));
 

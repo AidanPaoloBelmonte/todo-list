@@ -80,23 +80,42 @@ body {
 
 /* Content */
 #content {
+    margin-top: 24px;
     align-self: center;
 
-    width: min(900px, 100%);
+    width: min(750px, 100%);
 }
 
 #details {
     display: flex;
 }
 
-#details h1 {
+#title {
     flex: 1 auto;
+
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+        margin: 0px 0px 8px 0px;
+    }
+}
+
+#priority {
+    align-self: flex-start;
+
+    padding: 4px 16px;
+    border-radius: 16px;
+
+    font-size: 0.8rem;
+
+    background-color: aliceblue;
 }
 
 #due {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-end;
 
     text-align: right;
