@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <dialog>
+        <dialog id="new-list-dialog">
             <form>
                 <h2>New Tasklist</h2>
                 <label id="label-title" for="new-list-title">Title</label>
@@ -77,6 +77,16 @@
             </form>
         </dialog>
 
+        <dialog id="edit-text-dialog">
+            <form>
+                <label for="new-text">Change Text</label>
+                <textarea name="new-text" required minlength="3"></textarea>
+                <button id="edit-text-submit" type="submit">
+                    Submit New Text
+                </button>
+            </form>
+        </dialog>
+
         <template id="task-list-template">
             <div id="task-list">
                 <div id="overview">
@@ -90,15 +100,19 @@
                             <div id="duedate"></div>
                         </div>
                     </div>
-                    <p></p>
+                    <div id="description" class="context-container">
+                        <p></p>
+                        <button class="edit"></button>
+                    </div>
                 </div>
             </div>
         </template>
 
         <template id="task-template">
-            <div class="task">
+            <div class="task context-container">
                 <input type="checkbox" class="task-check" />
                 <span></span>
+                <button class="edit"></button>
             </div>
         </template>
     </body>

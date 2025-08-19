@@ -86,12 +86,20 @@ class TaskList {
     this.taskGroups[group].addTask(new Task(desc));
   }
 
+  editTask(group, index, text) {
+    this.taskGroups[group].tasks[index].desc = text;
+  }
+
   removeGroup(group) {
     this.taskGroups.splice(group, 1);
   }
 
   addGroup(title) {
     this.taskGroups.push(new TaskGroup(title));
+  }
+
+  editGroup(group, text) {
+    this.taskGroups[group].title = text;
   }
 
   isTaskGroupFinished(index) {

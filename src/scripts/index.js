@@ -55,5 +55,3 @@ let taskListSave = JSON.parse(localStorage[Object.keys(localStorage)[0]]);
 
 let loadedTaskList = new TaskList(taskListSave);
 generateTaskListDisplay(loadedTaskList);
-
-prepareModal();

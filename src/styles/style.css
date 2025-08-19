@@ -158,17 +158,35 @@ body {
     text-decoration: line-through;
 }
 
+.context-container {
+    position: relative;
+}
+
+.edit {
+    display: none;
+
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(50%, -50%);
+
+    height: 32px;
+    aspect-ratio: 1/1;
+    border: 1px solid gainsboro;
+    border-radius: 50%;
+
+    background-color: white;
+}
+
+.context-container:hover > .edit {
+    display: inline-block;
+}
+
 /* Dialogs/Popup Form */
 dialog {
     border: 0px;
     border-radius: 16px;
     outline: none;
-
-    flex: 0 0;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 dialog::backdrop {
@@ -176,7 +194,7 @@ dialog::backdrop {
     opacity: 75%;
 }
 
-dialog > form {
+#new-list-dialog > form {
     width: 50vw;
 
     display: grid;
@@ -196,15 +214,15 @@ dialog > form {
     }
 }
 
-form > h2 {
+#new-list-dialog h2 {
     margin-top: 4px;
 
     grid-area: h1;
 }
 
-form input,
-form select,
-form button {
+#new-list-dialog input,
+#new-list-dialog select,
+#new-list-dialog button {
     font-size: 1.1rem;
 
     padding: 4px;
@@ -252,4 +270,18 @@ form button {
     button {
         padding: 8px 16px;
     }
+}
+
+#edit-text-dialog > form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 1.1rem;
+}
+
+#edit-text-dialog textarea {
+    width: 25vw;
 }
