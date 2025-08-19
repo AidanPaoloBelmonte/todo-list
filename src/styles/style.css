@@ -157,3 +157,99 @@ body {
 .finished {
     text-decoration: line-through;
 }
+
+/* Dialogs/Popup Form */
+dialog {
+    border: 0px;
+    border-radius: 16px;
+    outline: none;
+
+    flex: 0 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+dialog::backdrop {
+    background-color: gainsboro;
+    opacity: 75%;
+}
+
+dialog > form {
+    width: 50vw;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-template: "h1 h1" "l1 l1" "ti ti" "l2 l3" "dd pr" "l4 ." "cg ." "bt bt";
+    column-gap: 16px;
+
+    label {
+        margin-bottom: 4px;
+        font-size: 1.2rem;
+    }
+
+    input,
+    select {
+        margin-bottom: 12px;
+    }
+}
+
+form > h2 {
+    margin-top: 4px;
+
+    grid-area: h1;
+}
+
+form input,
+form select,
+form button {
+    font-size: 1.1rem;
+
+    padding: 4px;
+    border-radius: 8px;
+}
+
+#label-title {
+    grid-area: l1;
+}
+
+#input-title {
+    grid-area: ti;
+}
+
+#label-duedate {
+    grid-area: l2;
+}
+
+#input-duedate {
+    grid-area: dd;
+}
+
+#label-priority {
+    grid-area: l3;
+}
+
+#input-priority {
+    grid-area: pr;
+}
+
+#label-category {
+    grid-area: l4;
+}
+
+#input-category {
+    grid-area: cg;
+}
+
+#new-list-submit {
+    grid-area: bt;
+    text-align: center;
+
+    margin-top: 24px;
+
+    button {
+        padding: 8px 16px;
+    }
+}

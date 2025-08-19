@@ -2,13 +2,7 @@ import { TaskList, Priority } from "./tasklist";
 
 const mainArea = document.querySelector("#main");
 const quickActionBar = document.querySelector("#quick-action");
-
-// function switchContentContext(context) {
-//   if (context === "project") {
-//   } else {
-
-//   }
-// }
+const newListDialog = document.querySelector("dialog");
 
 const contentArea = document.querySelector("#content");
 const taskListTemplate = document.querySelector("#task-list-template");
@@ -141,4 +135,12 @@ function clearContent() {
   }
 }
 
-export { generateTaskListDisplay, clearContent };
+function prepareModal() {
+  newListDialog
+    .querySelector("input[type=date]")
+    .setAttribute("min", new Date().toISOString().split("T")[0]);
+
+  newListDialog.showModal();
+}
+
+export { generateTaskListDisplay, clearContent, prepareModal };

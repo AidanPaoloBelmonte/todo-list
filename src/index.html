@@ -35,6 +35,46 @@
             </div>
         </div>
 
+        <dialog>
+            <form>
+                <h2>New Tasklist</h2>
+                <label id="label-title" for="new-list-title">Title</label>
+                <input
+                    id="input-title"
+                    name="new-list-title"
+                    type="field"
+                    required
+                />
+                <label id="label-duedate" for="new-list-duedate">Duedate</label>
+                <input
+                    id="input-duedate"
+                    name="new-list-duedate"
+                    type="date"
+                    required
+                />
+                <label id="label-priority" for="new-list-peiority"
+                    >Priority</label
+                >
+                <select id="input-priority" name="new-list-priority" required>
+                    <option value="NORMAL">Normal</option>
+                    <option value="IMPORTANT">Important</option>
+                    <option value="URGENT">Urgent</option>
+                </select>
+                <label id="label-category" for="new-list-category"
+                    >Category</label
+                >
+                <input
+                    id="input-category"
+                    name="new-list-category"
+                    list="categories"
+                    type="field"
+                />
+                <datalist id="categories"> </datalist>
+
+                <div id="new-list-submit"><button>Create List</button></div>
+            </form>
+        </dialog>
+
         <template id="task-list-template">
             <div id="task-list">
                 <div id="overview">
