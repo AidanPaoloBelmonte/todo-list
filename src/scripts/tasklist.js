@@ -38,7 +38,7 @@ class TaskList {
   duedate = new Date();
   taskGroups = [];
 
-  #id = "";
+  id = "";
 
   constructor(title, duedate, priority = 0, category = "") {
     if (typeof title == "object") {
@@ -62,11 +62,12 @@ class TaskList {
       else return undefined;
     } else {
       this.title = title;
-      this.duedate = duedate;
+      this.duedate = new Date(duedate);
       this.priority = Priority.asString(priority);
       this.category = category;
 
       this.taskGroups.push(new TaskGroup("tasks"));
+      this.addTask(0, "Edit this task to get started!");
 
       this.id = crypto.randomUUID();
     }

@@ -3,10 +3,36 @@ import { TaskList, Priority } from "./tasklist";
 const mainArea = document.querySelector("#main");
 const quickActionBar = document.querySelector("#quick-action");
 const newListDialog = document.querySelector("dialog");
+const newListForm = newListDialog.querySelector("form");
 
 const contentArea = document.querySelector("#content");
 const taskListTemplate = document.querySelector("#task-list-template");
 const taskTemplate = document.querySelector("#task-template");
+
+newListDialog.querySelector("button").addEventListener("click", (e) => {
+  if (!newListForm.reportValidity()) {
+    return;
+  }
+
+  const newListData = new FormData(newListForm);
+
+  const newTaskList = new TaskList(
+    newListData.get("new-list-title"),
+    newListData.get("new-list-duedate"),
+    newListData.get("new-list-priority"),
+    newListData.get("new-list-category"),
+  );
+
+  newListForm.reset();
+
+  newTaskList.save();
+  clearContent();
+  generateTaskListDisplay(newTaskList);
+
+  e.preventDefault();
+
+  newListDialog.close();
+});
 
 function generateTaskListDisplay(taskList) {
   if ((!taskList) instanceof TaskList) {
