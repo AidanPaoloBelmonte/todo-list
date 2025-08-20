@@ -7,7 +7,7 @@ const newTaskForm = newTaskDialog.querySelector("form");
 const newTaskSubmit = newTaskDialog.querySelector("button");
 const newGroupDialog = document.querySelector("#new-group-dialog");
 const newGroupForm = newGroupDialog.querySelector("form");
-const newGroupSubmit = newTaskDialog.querySelector("button");
+const newGroupSubmit = newGroupDialog.querySelector("button");
 
 const newListDialog = document.querySelector("#new-list-dialog");
 const editTextDialog = document.querySelector("#edit-text-dialog");
@@ -83,6 +83,37 @@ newTaskSubmit.addEventListener("click", (e) => {
   e.preventDefault();
   newTaskForm.reset();
   newTaskDialog.close();
+});
+
+newGroupSubmit.addEventListener("click", (e) => {
+  if (!newGroupForm.reportValidity()) {
+    return;
+  }
+
+  const newGroupData = new FormData(newGroupForm);
+  const listDisplay = document.querySelector("#task-list");
+  const listID = listDisplay.dataset.id;
+
+  if ((!listID) in localStorage) {
+    return;
+  }
+
+  const taskList = new TaskList(JSON.parse(localStorage[listID]));
+  taskList.addGroup(newGroupData.get("new-group"));
+
+  const groupDisplay = generateTaskGroupDisplay(
+    taskList.taskGroups.slice(-1)[0],
+    taskList.taskGroups.length - 1,
+  );
+  taskList.save();
+
+  listDisplay.appendChild(groupDisplay);
+
+  console.log("Does it even get here?");
+
+  e.preventDefault();
+  newGroupForm.reset();
+  newGroupDialog.close();
 });
 
 // Tasklist sensitive Dialogs
