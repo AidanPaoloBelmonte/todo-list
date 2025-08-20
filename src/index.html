@@ -8,7 +8,7 @@
     <body>
         <div id="page">
             <div id="sidebar">
-                <div id="tasklist" class="flex-spacer"></div>
+                <div id="tasklists" class="flex-spacer"></div>
                 <div id="quickbar">
                     <input id="newList" type="image" />
                     <input id="import" type="image" />
@@ -25,8 +25,8 @@
                     <div class="flex-spacer"></div>
 
                     <div id="quick-action">
-                        <input id="newCheck" type="image" />
-                        <input id="newSection" type="image" />
+                        <input id="new-task" type="image" />
+                        <input id="new-group" type="image" />
                         <input id="preferences" type="image" />
                     </div>
                 </div>
@@ -84,6 +84,25 @@
                 <button id="edit-text-submit" type="submit">
                     Submit New Text
                 </button>
+            </form>
+        </dialog>
+
+        <dialog id="new-task-dialog">
+            <form>
+                <label for="new-task">New Task</label>
+                <input type="field" name="new-task" required minlength="3"></input>
+                <label for="group-for-task">Task Group</label>
+                <select id="group-list" name="group-for-task">
+                </select>
+                <button id="new-task-submit" type="submit">Add new Task</button>
+            </form>
+        </dialog>
+
+        <dialog id="new-group-dialog">
+            <form>
+                <label for="new-group">New Group</label>
+                <input type="field" name="new-group" required minlength="3"></input>
+                <button id="new-group-submit" type="submit">Add new Group</button>
             </form>
         </dialog>
 

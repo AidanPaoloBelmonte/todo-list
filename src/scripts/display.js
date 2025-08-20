@@ -1,7 +1,14 @@
-import { TaskList, Priority } from "./tasklist";
+import { TaskList, Task, Priority } from "./tasklist";
 
 const mainArea = document.querySelector("#main");
 const quickActionBar = document.querySelector("#quick-action");
+const newTaskDialog = document.querySelector("#new-task-dialog");
+const newTaskForm = newTaskDialog.querySelector("form");
+const newTaskSubmit = newTaskDialog.querySelector("button");
+const newGroupDialog = document.querySelector("#new-group-dialog");
+const newGroupForm = newGroupDialog.querySelector("form");
+const newGroupSubmit = newTaskDialog.querySelector("button");
+
 const newListDialog = document.querySelector("#new-list-dialog");
 const editTextDialog = document.querySelector("#edit-text-dialog");
 const newListForm = newListDialog.querySelector("form");
@@ -11,6 +18,74 @@ const contentArea = document.querySelector("#content");
 const taskListTemplate = document.querySelector("#task-list-template");
 const taskTemplate = document.querySelector("#task-template");
 
+// General Dialogs
+quickActionBar.addEventListener("click", (e) => {
+  if (e.target.id === "new-task") {
+    newTaskDialog.showModal();
+
+    const listID = document.querySelector("#task-list").dataset.id;
+
+    if ((!listID) in localStorage) {
+      return;
+    }
+
+    const taskList = new TaskList(JSON.parse(localStorage[listID]));
+    const select = newTaskDialog.querySelector("#group-list");
+    taskList.getGroupNames().map((group, i) => {
+      let option = document.createElement("option");
+      option.value = i;
+      option.textContent = group;
+      console.log(typeof group, group);
+      select.appendChild(option);
+    });
+  } else if (e.target.id === "new-group") {
+    newGroupDialog.showModal();
+  }
+});
+
+newTaskSubmit.addEventListener("click", (e) => {
+  if (!newTaskForm.reportValidity()) {
+    return;
+  }
+
+  const newTaskData = new FormData(newTaskForm);
+  const listID = document.querySelector("#task-list").dataset.id;
+
+  if ((!listID) in localStorage) {
+    return;
+  }
+
+  const taskList = new TaskList(JSON.parse(localStorage[listID]));
+  taskList.addTask(
+    newTaskData.get("group-for-task"),
+    newTaskData.get("new-task"),
+  );
+  taskList.save();
+
+  const groupDisplay = document.querySelector(
+    `.task-group[data-group-index="${newTaskData.get("group-for-task")}"]`,
+  );
+
+  const taskGroup = taskList.taskGroups[newTaskData.get("group-for-task")];
+  const newTask = generateTaskDisplay(
+    taskGroup.tasks.slice(-1)[0],
+    newTaskData.get("group-for-task"),
+    taskGroup.tasks.length - 1,
+  );
+
+  groupDisplay.appendChild(newTask);
+
+  const select = newTaskDialog.querySelector("#group-list");
+  while (select.firstElementChild) {
+    select.removeChild(select.firstElementChild);
+  }
+
+  e.preventDefault();
+  newTaskForm.reset();
+  newTaskDialog.close();
+});
+
+// Tasklist sensitive Dialogs
 newListDialog.querySelector("button").addEventListener("click", (e) => {
   if (!newListForm.reportValidity()) {
     return;
@@ -79,7 +154,7 @@ editTextDialog
         const taskDisplay = groupDisplay.querySelector(
           `.task[data-index="${editTextDialog.dataset.targetIndex}"]`,
         );
-
+        console.log(editTextDialog.dataset.targetIndex);
         if (taskDisplay) {
           taskList.editTask(
             editTextDialog.dataset.targetGroup,
@@ -140,7 +215,7 @@ function generateTaskListDisplay(taskList) {
 
   listArea.addEventListener("click", (e) => {
     if (e.target.classList.contains("task-check")) {
-      handleToggleTask(taskList, e);
+      handleToggleTask(e);
     } else if (e.target.classList.contains("edit")) {
       handleTextEdit(e);
     }
@@ -198,7 +273,10 @@ function generateTaskDisplay(task, groupIndex, taskIndex) {
   return newTask;
 }
 
-function handleToggleTask(taskList, e) {
+function handleToggleTask(e) {
+  const listID = document.querySelector("#task-list").dataset.id;
+  const taskList = new TaskList(JSON.parse(localStorage[listID]));
+
   const taskGroupDisplay = e.target.parentElement.parentElement;
   const taskListDisplay = taskGroupDisplay.parentElement;
 
@@ -236,6 +314,8 @@ function handleToggleTask(taskList, e) {
       listTitleDisplay.classList.remove("finished");
     }
   }
+
+  taskList.save();
 }
 
 function handleTextEdit(e) {

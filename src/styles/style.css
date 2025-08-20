@@ -272,7 +272,8 @@ dialog::backdrop {
     }
 }
 
-#edit-text-dialog > form {
+#edit-text-dialog > form,
+#new-group-dialog > form {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -284,4 +285,26 @@ dialog::backdrop {
 
 #edit-text-dialog textarea {
     width: 25vw;
+}
+
+#edit-text-dialog button,
+#new-group-dialog button {
+    margin-top: 8px;
+}
+
+#new-task-dialog > form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+}
+
+#new-task-dialog select {
+    width: 100%;
+}
+
+#new-task-submit {
+    margin: 0 auto;
+    margin-top: 8px;
 }

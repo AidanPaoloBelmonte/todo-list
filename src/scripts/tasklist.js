@@ -102,6 +102,10 @@ class TaskList {
     this.taskGroups[group].title = text;
   }
 
+  getGroupNames() {
+    return this.taskGroups.map((group) => group.title);
+  }
+
   isTaskGroupFinished(index) {
     return this.taskGroups[index].areTasksFinished();
   }
