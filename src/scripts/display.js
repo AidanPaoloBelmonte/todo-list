@@ -49,7 +49,7 @@ editTextDialog
 
     // Edit Description
     if (editTextDialog.dataset.targetGroup === "undefined") {
-      document.querySelector("#description").textContent =
+      document.querySelector("#description > p").textContent =
         newTextData.get("new-text");
 
       taskList.desc = newTextData.get("new-text");
