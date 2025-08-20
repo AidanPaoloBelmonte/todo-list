@@ -35,7 +35,6 @@ quickActionBar.addEventListener("click", (e) => {
       let option = document.createElement("option");
       option.value = i;
       option.textContent = group;
-      console.log(typeof group, group);
       select.appendChild(option);
     });
   } else if (e.target.id === "new-group") {
@@ -109,8 +108,6 @@ newGroupSubmit.addEventListener("click", (e) => {
 
   listDisplay.appendChild(groupDisplay);
 
-  console.log("Does it even get here?");
-
   e.preventDefault();
   newGroupForm.reset();
   newGroupDialog.close();
@@ -178,14 +175,11 @@ editTextDialog
 
         groupDisplay.querySelector("h2").textContent =
           newTextData.get("new-text");
-
-        console.log(groupDisplay);
       } else {
         //  Edit Task Description
         const taskDisplay = groupDisplay.querySelector(
           `.task[data-index="${editTextDialog.dataset.targetIndex}"]`,
         );
-        console.log(editTextDialog.dataset.targetIndex);
         if (taskDisplay) {
           taskList.editTask(
             editTextDialog.dataset.targetGroup,
@@ -200,7 +194,6 @@ editTextDialog
     }
 
     taskList.save();
-    console.log(taskList);
 
     e.preventDefault();
 
@@ -249,6 +242,8 @@ function generateTaskListDisplay(taskList) {
       handleToggleTask(e);
     } else if (e.target.classList.contains("edit")) {
       handleTextEdit(e);
+    } else if (e.target.classList.contains("remove")) {
+      handleRemoveProperty(e);
     }
   });
 
@@ -273,14 +268,25 @@ function generateTaskGroupDisplay(
   const groupTitleArea = document.createElement("div");
   groupTitleArea.classList.add("context-container");
 
+  const propertyActionsArea = document.createElement("div");
+  propertyActionsArea.classList.add("property-actions");
+
   const editButton = document.createElement("button");
   editButton.classList.add("edit");
+  editButton.classList.add("property-action");
+
+  const removeButton = document.createElement("button");
+  removeButton.classList.add("remove");
+  removeButton.classList.add("property-action");
 
   newTaskGroup.classList.add("task-group");
   newTaskGroup.dataset.groupIndex = groupIndex;
   taskGroupTitle.textContent = taskGroup.title;
+
+  propertyActionsArea.appendChild(editButton);
+  propertyActionsArea.appendChild(removeButton);
   groupTitleArea.appendChild(taskGroupTitle);
-  groupTitleArea.appendChild(editButton);
+  groupTitleArea.appendChild(propertyActionsArea);
   newTaskGroup.appendChild(groupTitleArea);
 
   taskGroup.tasks.map((task, i) => {
@@ -350,7 +356,7 @@ function handleToggleTask(e) {
 }
 
 function handleTextEdit(e) {
-  let taskContainer = e.target.parentElement;
+  let taskContainer = e.target.parentElement.parentElement;
 
   if (
     !taskContainer.classList.contains("task") &&
@@ -363,6 +369,31 @@ function handleTextEdit(e) {
   editTextDialog.dataset.targetIndex = taskContainer.dataset.index;
 
   editTextDialog.showModal();
+}
+
+function handleRemoveProperty(e) {
+  const listID = document.querySelector("#task-list").dataset.id;
+  const taskList = new TaskList(JSON.parse(localStorage[listID]));
+
+  let taskContainer = e.target.parentElement.parentElement;
+
+  if (
+    !taskContainer.classList.contains("task") &&
+    taskContainer.parentElement.classList.contains("task-group")
+  ) {
+    taskContainer = taskContainer.parentElement;
+
+    taskList.removeGroup(taskContainer.dataset.groupIndex);
+  } else {
+    taskList.removeTask(
+      taskContainer.dataset.groupIndex,
+      taskContainer.dataset.index,
+    );
+  }
+
+  taskList.save();
+  console.log(taskList);
+  taskContainer.remove();
 }
 
 function clearContent() {

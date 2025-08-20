@@ -162,24 +162,29 @@ body {
     position: relative;
 }
 
-.edit {
+.property-actions {
     display: none;
 
     position: absolute;
     top: 50%;
     right: 0;
     transform: translate(50%, -50%);
+}
 
+.context-container:hover > .property-actions {
+    display: flex;
+
+    gap: 4px;
+}
+
+.property-action {
+    display: inherit;
     height: 32px;
     aspect-ratio: 1/1;
     border: 1px solid gainsboro;
     border-radius: 50%;
 
     background-color: white;
-}
-
-.context-container:hover > .edit {
-    display: inline-block;
 }
 
 /* Dialogs/Popup Form */
