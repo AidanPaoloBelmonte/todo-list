@@ -29,7 +29,9 @@ body {
     max-width: 0px;
     z-index: 1;
 
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    text-wrap: nowrap;
 
     display: flex;
     flex-direction: column;
@@ -42,6 +44,10 @@ body {
     max-width: 250px;
 }
 
+#tasklists {
+    padding: 16px 0px;
+}
+
 #quickbar {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -52,6 +58,23 @@ body {
 
 #newList {
     grid-area: 1 / 1 / span 1 / span 4;
+}
+
+#categories {
+    margin-top: 16px;
+    margin-bottom: 8px;
+}
+
+.list-entry {
+    padding: 4px 4px 4px 12px;
+}
+
+.category-entry {
+    padding: 4px 4px 4px 24px;
+}
+
+.category-content {
+    margin-top: 4px;
 }
 
 /* Main Section*/

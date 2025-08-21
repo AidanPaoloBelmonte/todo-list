@@ -31,6 +31,10 @@ quickActionBar.addEventListener("click", (e) => {
 
     const taskList = new TaskList(JSON.parse(localStorage[listID]));
     const select = newTaskDialog.querySelector("#group-list");
+    while (select.firstElementChild) {
+      select.removeChild(select.firstElementChild);
+    }
+
     taskList.getGroupNames().map((group, i) => {
       let option = document.createElement("option");
       option.value = i;
@@ -73,11 +77,6 @@ newTaskSubmit.addEventListener("click", (e) => {
   );
 
   groupDisplay.appendChild(newTask);
-
-  const select = newTaskDialog.querySelector("#group-list");
-  while (select.firstElementChild) {
-    select.removeChild(select.firstElementChild);
-  }
 
   e.preventDefault();
   newTaskForm.reset();

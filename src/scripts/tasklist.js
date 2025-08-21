@@ -128,7 +128,7 @@ class TaskList {
     return formatDistanceToNow(this.duedate);
   }
 
-  get ID() {
+  get id() {
     return this.id;
   }
 
