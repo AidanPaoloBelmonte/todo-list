@@ -1,4 +1,5 @@
 import { TaskList, Task, Priority } from "./tasklist";
+import { insertNewCategoryEntry } from "./sidebar";
 
 const mainArea = document.querySelector("#main");
 const quickActionBar = document.querySelector("#quick-action");
@@ -132,6 +133,11 @@ newListDialog.querySelector("button").addEventListener("click", (e) => {
   newTaskList.save();
   clearContent();
   generateTaskListDisplay(newTaskList);
+  insertNewCategoryEntry(
+    newTaskList.category,
+    newTaskList.title,
+    newTaskList.id,
+  );
 
   e.preventDefault();
 

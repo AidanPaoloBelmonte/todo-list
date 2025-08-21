@@ -6,6 +6,20 @@ import {
 } from "./display";
 
 const sidebar = document.querySelector("#sidebar");
+const categoriesDisplay = sidebar.querySelector("#category-lists");
+
+categoriesDisplay.addEventListener("click", (e) => {
+  if (e.target.classList.contains("category-header")) {
+    e.target.nextElementSibling.classList.toggle("content-close");
+  } else if (e.target.classList.contains("category-entry")) {
+    if ((!e.target.dataset.id) in localStorage) return;
+
+    clearContent();
+    generateTaskListDisplay(
+      new TaskList(JSON.parse(localStorage[e.target.dataset.id])),
+    );
+  }
+});
 
 sidebar.querySelector("#new-list").addEventListener("click", (e) => {
   toggle();
@@ -28,26 +42,9 @@ function init() {
     return entries;
   }, {});
 
-  const categoriesDisplay = document.querySelector("#category-lists");
   Object.keys(categoryEntries).forEach((category) => {
-    let categoryContainer = document.createElement("div");
-    categoryContainer.classList.add("list-entry");
-
-    let categoryHeader = document.createElement("button");
-    categoryHeader.classList.add("category-header");
-
-    if (!category) {
-      categoryHeader.textContent = "No Category";
-    } else {
-      categoryHeader.textContent = category;
-    }
-
-    categoryHeader.addEventListener("click", () => {
-      categoryHeader.nextElementSibling.classList.toggle("content-close");
-    });
-
-    let categoryContent = document.createElement("div");
-    categoryContent.classList.add("category-content");
+    let categoryContainer = createCategoryContainer(category);
+    let categoryContent = categoryContainer.querySelector(".category-content");
 
     categoryEntries[category].forEach((entry) => {
       let categoryEntry = document.createElement("button");
@@ -59,27 +56,60 @@ function init() {
       categoryContent.appendChild(categoryEntry);
     });
 
-    categoryContent.addEventListener("click", (e) => {
-      if (!e.target.classList.contains("category-entry")) {
-        return;
-      } else if ((!e.target.dataset.id) in localStorage) {
-        return;
-      }
-
-      clearContent();
-      generateTaskListDisplay(
-        new TaskList(JSON.parse(localStorage[e.target.dataset.id])),
-      );
-    });
-
-    categoryContainer.appendChild(categoryHeader);
-    categoryContainer.appendChild(categoryContent);
     categoriesDisplay.appendChild(categoryContainer);
   });
+}
+
+function createCategoryContainer(categoryName) {
+  let categoryContainer = document.createElement("div");
+  categoryContainer.classList.add("list-entry");
+
+  let categoryHeader = document.createElement("button");
+  categoryHeader.classList.add("category-header");
+
+  if (!categoryName) {
+    categoryHeader.textContent = "No Category";
+  } else {
+    categoryHeader.textContent = categoryName;
+  }
+
+  let categoryContent = document.createElement("div");
+  categoryContent.classList.add("category-content");
+
+  categoryContainer.appendChild(categoryHeader);
+  categoryContainer.appendChild(categoryContent);
+
+  return categoryContainer;
+}
+
+function insertNewCategoryEntry(categoryName, listTitle, listID) {
+  let categoryEntry = document.createElement("button");
+  categoryEntry.classList.add("category-entry");
+
+  categoryEntry.textContent = listTitle;
+  categoryEntry.dataset.id = listID;
+
+  const categoryTarget = !categoryName ? "No Category" : categoryName;
+
+  const categoryDisplays = document.querySelectorAll(".category-header");
+  for (let l = 0; l < categoryDisplays.length; l++) {
+    if (categoryDisplays[l].textContent == categoryTarget) {
+      categoryDisplays[l].nextElementSibling.appendChild(categoryEntry);
+
+      return;
+    }
+  }
+
+  const newCategoryContainer = createCategoryContainer(categoryName);
+  newCategoryContainer
+    .querySelector(".category-content")
+    .appendChild(categoryEntry);
+
+  categoriesDisplay.appendChild(newCategoryContainer);
 }
 
 function toggle() {
   sidebar.classList.toggle("sidebarOpen");
 }
 
-export { init, toggle };
+export { init, toggle, insertNewCategoryEntry };
