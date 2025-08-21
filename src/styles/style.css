@@ -77,7 +77,7 @@ body {
     transition: 150ms;
 }
 
-#categories {
+#category-lists {
     margin-top: 16px;
     margin-bottom: 8px;
 }
@@ -90,7 +90,7 @@ body {
     padding: 4px 4px 4px 12px;
 }
 
-#categories .list-entry,
+#category-lists .list-entry,
 .category-content {
     display: flex;
     flex-direction: column;

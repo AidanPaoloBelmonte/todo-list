@@ -406,8 +406,15 @@ function prepareNewListDialog() {
     .querySelector("input[type=date]")
     .setAttribute("min", new Date().toISOString().split("T")[0]);
 
-  const categories = document.querySelectorAll(".category-header");
-  console.log(categories);
+  const categoryDataList = newListDialog.querySelector("datalist");
+
+  const categoryDisplays = document.querySelectorAll(".category-header");
+  for (let l = 0; l < categoryDisplays.length; l++) {
+    let option = document.createElement("option");
+    option.value = categoryDisplays[l].textContent;
+
+    categoryDataList.appendChild(option);
+  }
 
   newListDialog.showModal();
 }

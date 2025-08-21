@@ -28,7 +28,7 @@ function init() {
     return entries;
   }, {});
 
-  const categoriesDisplay = document.querySelector("#categories");
+  const categoriesDisplay = document.querySelector("#category-lists");
   Object.keys(categoryEntries).forEach((category) => {
     let categoryContainer = document.createElement("div");
     categoryContainer.classList.add("list-entry");
