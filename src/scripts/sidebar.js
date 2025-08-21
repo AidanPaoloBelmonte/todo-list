@@ -1,7 +1,17 @@
 import { TaskList } from "./tasklist";
-import { generateTaskListDisplay, clearContent } from "./display";
+import {
+  generateTaskListDisplay,
+  clearContent,
+  prepareNewListDialog,
+} from "./display";
 
 const sidebar = document.querySelector("#sidebar");
+
+sidebar.querySelector("#new-list").addEventListener("click", (e) => {
+  toggle();
+
+  prepareNewListDialog();
+});
 
 function init() {
   const lists = Object.keys(localStorage).map(
@@ -24,6 +34,7 @@ function init() {
     categoryContainer.classList.add("list-entry");
 
     let categoryHeader = document.createElement("button");
+    categoryHeader.classList.add("category-header");
 
     if (!category) {
       categoryHeader.textContent = "No Category";

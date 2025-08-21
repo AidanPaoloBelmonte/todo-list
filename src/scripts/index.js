@@ -17,11 +17,7 @@ localStorage.clear();
 import "../styles/style.css";
 
 import { TaskList } from "./tasklist.js";
-import {
-  generateTaskListDisplay,
-  clearContent,
-  prepareModal,
-} from "./display.js";
+import { generateTaskListDisplay, clearContent } from "./display.js";
 import { init, toggle } from "./sidebar.js";
 
 const sidebarButton = document.querySelector("#toggleSidebar");

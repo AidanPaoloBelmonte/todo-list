@@ -401,12 +401,15 @@ function clearContent() {
   }
 }
 
-function prepareModal() {
+function prepareNewListDialog() {
   newListDialog
     .querySelector("input[type=date]")
     .setAttribute("min", new Date().toISOString().split("T")[0]);
 
+  const categories = document.querySelectorAll(".category-header");
+  console.log(categories);
+
   newListDialog.showModal();
 }
 
-export { generateTaskListDisplay, clearContent, prepareModal };
+export { generateTaskListDisplay, clearContent, prepareNewListDialog };
