@@ -397,7 +397,6 @@ function handleRemoveProperty(e) {
   }
 
   taskList.save();
-  console.log(taskList);
   taskContainer.remove();
 }
 
@@ -413,6 +412,9 @@ function prepareNewListDialog() {
     .setAttribute("min", new Date().toISOString().split("T")[0]);
 
   const categoryDataList = newListDialog.querySelector("datalist");
+  while (categoryDataList.firstElementChild) {
+    categoryDataList.removeChild(categoryDataList.firstElementChild);
+  }
 
   const categoryDisplays = document.querySelectorAll(".category-header");
   for (let l = 0; l < categoryDisplays.length; l++) {

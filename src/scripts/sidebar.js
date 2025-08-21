@@ -18,6 +18,23 @@ categoriesDisplay.addEventListener("click", (e) => {
     generateTaskListDisplay(
       new TaskList(JSON.parse(localStorage[e.target.dataset.id])),
     );
+  } else if (e.target.classList.contains("remove")) {
+    const taskEntry = e.target.parentElement.parentElement;
+
+    if (taskEntry.dataset.id in localStorage) {
+      localStorage.removeItem(taskEntry.dataset.id);
+
+      const mainContent = document.querySelector("#task-list");
+      if (mainContent && mainContent.dataset.id == taskEntry.dataset.id) {
+        clearContent();
+      }
+    }
+
+    if (taskEntry.parentElement.childNodes.length <= 1) {
+      taskEntry.parentElement.parentElement.remove();
+    } else {
+      taskEntry.remove();
+    }
   }
 });
 
@@ -49,9 +66,14 @@ function init() {
     categoryEntries[category].forEach((entry) => {
       let categoryEntry = document.createElement("button");
       categoryEntry.classList.add("category-entry");
+      categoryEntry.classList.add("context-container");
+      categoryEntry.classList.add("sidebar-entry");
 
       categoryEntry.textContent = entry.title;
       categoryEntry.dataset.id = entry.id;
+
+      let contextMenu = createCategoryContextMenu();
+      categoryEntry.appendChild(contextMenu);
 
       categoryContent.appendChild(categoryEntry);
     });
@@ -66,6 +88,7 @@ function createCategoryContainer(categoryName) {
 
   let categoryHeader = document.createElement("button");
   categoryHeader.classList.add("category-header");
+  categoryHeader.classList.add("sidebar-entry");
 
   if (!categoryName) {
     categoryHeader.textContent = "No Category";
@@ -85,9 +108,14 @@ function createCategoryContainer(categoryName) {
 function insertNewCategoryEntry(categoryName, listTitle, listID) {
   let categoryEntry = document.createElement("button");
   categoryEntry.classList.add("category-entry");
+  categoryEntry.classList.add("context-container");
+  categoryEntry.classList.add("sidebar-entry");
 
   categoryEntry.textContent = listTitle;
   categoryEntry.dataset.id = listID;
+
+  const contextMenu = createCategoryContextMenu();
+  categoryEntry.appendChild(contextMenu);
 
   const categoryTarget = !categoryName ? "No Category" : categoryName;
 
@@ -106,6 +134,19 @@ function insertNewCategoryEntry(categoryName, listTitle, listID) {
     .appendChild(categoryEntry);
 
   categoriesDisplay.appendChild(newCategoryContainer);
+}
+
+function createCategoryContextMenu() {
+  let propertyActionArea = document.createElement("div");
+  propertyActionArea.classList.add("property-actions");
+
+  const removeButton = document.createElement("button");
+  removeButton.classList.add("remove");
+  removeButton.classList.add("property-action");
+
+  propertyActionArea.appendChild(removeButton);
+
+  return propertyActionArea;
 }
 
 function toggle() {

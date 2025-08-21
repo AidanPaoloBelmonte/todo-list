@@ -10,13 +10,17 @@ class Priority {
   static URGENT = 2;
 
   static isValid(priority) {
-    return [Priority.NORMAL, Priority.IMPORTANT, Priority.URGENT].include(
-      priority,
+    return (
+      [Priority.NORMAL, Priority.IMPORTANT, Priority.URGENT].includes(
+        priority,
+      ) || Object.keys(Priority).includes(priority)
     );
   }
 
   static asString(value) {
-    if (Object.values(Priority).includes(value)) {
+    if (typeof value === "string" && Priority.isValid(value)) {
+      return value;
+    } else if (Object.values(Priority).includes(value)) {
       return Object.keys(Priority).reduce(function (acc, key) {
         return ((acc[Priority[key]] = key), acc);
       }, {})[value];
