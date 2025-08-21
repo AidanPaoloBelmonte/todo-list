@@ -60,13 +60,44 @@ body {
     grid-area: 1 / 1 / span 1 / span 4;
 }
 
+#tasklists button {
+    border: 0px;
+    border-radius: 12px 0px 0px 12px;
+
+    background-color: white;
+    background-clip: padding-box;
+
+    text-align: left;
+    font-size: 1rem;
+}
+
+#tasklists button:active {
+    background-color: gainsboro;
+
+    transition: 150ms;
+}
+
 #categories {
     margin-top: 16px;
     margin-bottom: 8px;
 }
 
 .list-entry {
+    padding: 4px;
+}
+
+.list-entry button {
     padding: 4px 4px 4px 12px;
+}
+
+#categories .list-entry,
+.category-content {
+    display: flex;
+    flex-direction: column;
+
+    align-items: stretch;
+
+    text-align: left;
 }
 
 .category-entry {
@@ -74,7 +105,14 @@ body {
 }
 
 .category-content {
-    margin-top: 4px;
+    padding-left: 12px;
+    overflow: hidden;
+
+    transition: max-height 1509ms;
+}
+
+.category-content.content-close {
+    max-height: 0px;
 }
 
 /* Main Section*/

@@ -225,7 +225,7 @@ function generateTaskListDisplay(taskList) {
   newList.querySelector("#description > p").textContent = taskList.desc;
 
   const listArea = newList.querySelector("#task-list");
-  listArea.dataset.id = taskList.ID;
+  listArea.dataset.id = taskList.id;
   taskList.taskGroups.map((group, i) => {
     let taskGroupDisplay = generateTaskGroupDisplay(
       group,
