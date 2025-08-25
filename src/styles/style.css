@@ -404,9 +404,19 @@ dialog::backdrop {
 .overview-entry {
     display: flex;
 
+    transition: scale 150ms ease-in-out;
+
     .property-actions {
         top: 0;
     }
+}
+
+.overview-entry:hover {
+    scale: 1.05;
+}
+
+.overview-entry:active {
+    scale: 0.9;
 }
 
 .overview-details {
