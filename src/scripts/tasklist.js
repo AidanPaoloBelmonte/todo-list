@@ -132,6 +132,21 @@ class TaskList {
     return formatDistanceToNow(this.duedate);
   }
 
+  getTotalTasks() {
+    return this.taskGroups.reduce(
+      (total, current) => total + current.tasks.length,
+      0,
+    );
+  }
+
+  getTotalTasksCompleted() {
+    return this.taskGroups.reduce(
+      (total, current) =>
+        total + current.tasks.filter((task) => task.isFinished).length,
+      0,
+    );
+  }
+
   get id() {
     return this.id;
   }

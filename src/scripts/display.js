@@ -221,7 +221,8 @@ function generateListOverview(priorityFilter = null) {
     newEntry.querySelector(".overview-entry").dataset.id = taskList.id;
 
     newEntry.querySelector(".overview-title").textContent = taskList.title;
-    newEntry.querySelector(".completion").textContent = taskList.title;
+    newEntry.querySelector(".completion").textContent =
+      `${taskList.getTotalTasksCompleted()} / ${taskList.getTotalTasks()} Tasks Completed`;
     newEntry.querySelector(".overview-due").textContent =
       taskList.getRemainingTime();
 
@@ -243,7 +244,7 @@ function generateTaskListDisplay(taskList) {
   const newList = taskListTemplate.content.cloneNode(true);
 
   newList.querySelector("#title > h1").textContent = taskList.title;
-  const priorityDisplay = newList.querySelector("#priority");
+  const priorityDisplay = newList.querySelector(".priority");
   priorityDisplay.textContent = taskList.priority;
   priorityDisplay.classList.add(taskList.priority.toLowerCase());
 
