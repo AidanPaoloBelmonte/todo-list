@@ -163,11 +163,13 @@ body {
     h1 {
         margin: 0px 0px 8px 0px;
     }
+
+    .priority {
+        align-self: flex-start;
+    }
 }
 
-#priority {
-    align-self: flex-start;
-
+.priority {
     padding: 4px 16px;
     border-radius: 16px;
 
@@ -178,11 +180,11 @@ body {
     color: white;
 }
 
-#priority.important {
+.priority.important {
     background-color: burlywood;
 }
 
-#priority.urgent {
+.priority.urgent {
     background-color: red;
 }
 
@@ -389,4 +391,68 @@ dialog::backdrop {
 #new-task-submit {
     margin: 0 auto;
     margin-top: 8px;
+}
+
+/* Category View*/
+#list-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 300px);
+    grid-template-rows: repeat(auto-fit, 200px);
+    gap: 16px;
+}
+
+.overview-entry {
+    padding: 8px;
+    border-radius: 16px;
+    border: 3px solid gainsboro;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr auto;
+    grid-auto-columns: 1fr;
+    grid-auto-rows: auto;
+    gap: 8px;
+
+    overflow: hidden;
+
+    .priority,
+    .overview-due {
+        text-align: center;
+    }
+}
+
+.overview-title {
+    grid-area: 1 / 1 / span 1 / span 2;
+
+    margin: 3px;
+
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.completion {
+    grid-area: 2 / 1 / span 1 / span 2;
+
+    margin: 0 auto;
+}
+
+.overview-entry > .priority {
+    grid-area: 3 / 1 / span 1 / span 1;
+
+    justify-self: center;
+    align-self: center;
+}
+
+.overview-due {
+    grid-area: 3 / 2 / span 1 / span 1;
+
+    margin: 0px -8px -8px 0px;
+
+    border-top-left-radius: 24px;
+
+    background-color: gainsboro;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

@@ -113,13 +113,22 @@
             </form>
         </dialog>
 
+        <template id="overview-entry-template">
+            <div class="overview-entry">
+                <p class="overview-title">TaskList Title</p>
+                <p class="completion">0/20 Tasks Complete</p>
+                <div class="priority">NORMAL</div>
+                <div class="overview-due">Due in:</div>
+            </div>
+        </template>
+
         <template id="task-list-template">
             <div id="task-list">
                 <div id="overview">
                     <div id="details">
                         <div id="title">
                             <h1></h1>
-                            <div id="priority"></div>
+                            <div class="priority"></div>
                         </div>
                         <div id="due">
                             <div id="due-remain">Due in:<span></span></div>

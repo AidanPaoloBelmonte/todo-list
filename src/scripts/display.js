@@ -16,6 +16,7 @@ const newListForm = newListDialog.querySelector("form");
 const editTextForm = editTextDialog.querySelector("form");
 
 const contentArea = document.querySelector("#content");
+const taskOverviewEntry = document.querySelector("#overview-entry-template");
 const taskListTemplate = document.querySelector("#task-list-template");
 const taskTemplate = document.querySelector("#task-template");
 
@@ -208,6 +209,31 @@ editTextDialog
 
     editTextDialog.close();
   });
+
+function generateListOverview(priorityFilter = null) {
+  const listOverview = document.createElement("div");
+  listOverview.id = "list-overview";
+
+  Object.keys(localStorage).forEach((id) => {
+    let taskList = new TaskList(JSON.parse(localStorage[id]));
+    let newEntry = taskOverviewEntry.content.cloneNode(true);
+
+    newEntry.querySelector(".overview-entry").dataset.id = taskList.id;
+
+    newEntry.querySelector(".overview-title").textContent = taskList.title;
+    newEntry.querySelector(".completion").textContent = taskList.title;
+    newEntry.querySelector(".overview-due").textContent =
+      taskList.getRemainingTime();
+
+    const priorityDisplay = newEntry.querySelector(".priority");
+    priorityDisplay.textContent = taskList.priority;
+    priorityDisplay.classList.add(taskList.priority.toLowerCase());
+
+    listOverview.appendChild(newEntry);
+  });
+
+  contentArea.appendChild(listOverview);
+}
 
 function generateTaskListDisplay(taskList) {
   if ((!taskList) instanceof TaskList) {
@@ -427,4 +453,9 @@ function prepareNewListDialog() {
   newListDialog.showModal();
 }
 
-export { generateTaskListDisplay, clearContent, prepareNewListDialog };
+export {
+  generateListOverview,
+  generateTaskListDisplay,
+  clearContent,
+  prepareNewListDialog,
+};

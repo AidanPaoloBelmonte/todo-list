@@ -17,7 +17,11 @@ localStorage.clear();
 import "../styles/style.css";
 
 import { TaskList } from "./tasklist.js";
-import { generateTaskListDisplay, clearContent } from "./display.js";
+import {
+  generateListOverview,
+  generateTaskListDisplay,
+  clearContent,
+} from "./display.js";
 import { init, toggle } from "./sidebar.js";
 
 const sidebarButton = document.querySelector("#toggleSidebar");
@@ -55,7 +59,7 @@ taskList2.save();
 
 let taskListSave = JSON.parse(localStorage[Object.keys(localStorage)[0]]);
 
-let loadedTaskList = new TaskList(taskListSave);
-generateTaskListDisplay(loadedTaskList);
+// generateTaskListDisplay(new TaskList(taskListSave));
+generateListOverview();
 
 init();
