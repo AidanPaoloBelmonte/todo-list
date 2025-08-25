@@ -114,11 +114,16 @@
         </dialog>
 
         <template id="overview-entry-template">
-            <div class="overview-entry">
-                <p class="overview-title">TaskList Title</p>
-                <p class="completion">0/20 Tasks Complete</p>
-                <div class="priority">NORMAL</div>
-                <div class="overview-due">Due in:</div>
+            <div class="overview-entry context-container">
+                <div class="overview-details">
+                    <p class="overview-title">TaskList Title</p>
+                    <p class="completion">0/20 Tasks Complete</p>
+                    <div class="priority">NORMAL</div>
+                    <div class="overview-due">Due in:</div>
+                </div>
+                <div class="property-actions">
+                    <button class="remove property-action"></button>
+                </div>
             </div>
         </template>
 

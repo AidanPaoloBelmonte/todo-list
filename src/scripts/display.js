@@ -214,6 +214,38 @@ function generateListOverview(priorityFilter = null) {
   const listOverview = document.createElement("div");
   listOverview.id = "list-overview";
 
+  listOverview.addEventListener("click", (e) => {
+    if (e.target.classList.contains("remove")) {
+      const taskEntry = e.target.parentElement.parentElement;
+
+      if (taskEntry.dataset.id in localStorage) {
+        localStorage.removeItem(taskEntry.dataset.id);
+      }
+
+      taskEntry.parentElement.removeChild(taskEntry);
+    } else if (!e.target.classList.contains("list-overview")) {
+      let taskEntry = e.target;
+      for (let l = 0; l < 4; l++) {
+        console.log(taskEntry);
+        if (taskEntry.classList.contains("overview-entry")) {
+          break;
+        } else if (l == 3) {
+          return 1;
+        } else {
+          taskEntry = taskEntry.parentElement;
+        }
+      }
+
+      if (taskEntry.dataset.id in localStorage) {
+        let taskList = new TaskList(
+          JSON.parse(localStorage[taskEntry.dataset.id]),
+        );
+        clearContent();
+        generateTaskListDisplay(taskList);
+      }
+    }
+  });
+
   Object.keys(localStorage).forEach((id) => {
     let taskList = new TaskList(JSON.parse(localStorage[id]));
     let newEntry = taskOverviewEntry.content.cloneNode(true);
