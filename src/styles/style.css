@@ -487,3 +487,15 @@ dialog::backdrop {
 .hide {
     display: none;
 }
+
+/* Icons */
+.edit {
+    background-image: url("../assets/pencil.svg");
+    background-size: 24px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.remove {
+    background-image: url("../assets/minus.svg");
+}
