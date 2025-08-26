@@ -22,6 +22,10 @@ const taskTemplate = document.querySelector("#task-template");
 
 // General Dialogs
 quickActionBar.addEventListener("click", (e) => {
+  if (!document.querySelector("#task-list")) {
+    return;
+  }
+
   if (e.target.id === "new-task") {
     newTaskDialog.showModal();
 
@@ -211,6 +215,11 @@ editTextDialog
   });
 
 function generateListOverview(priorityFilter = null) {
+  // Disable Quick Action Bar if shown
+  if (!quickActionBar.classList.contains("hide")) {
+    quickActionBar.classList.add("hide");
+  }
+
   const listOverview = document.createElement("div");
   listOverview.id = "list-overview";
 
@@ -277,6 +286,11 @@ function generateListOverview(priorityFilter = null) {
 }
 
 function generateTaskListDisplay(taskList) {
+  // Enable Quick Action Bar if hidden
+  if (quickActionBar.classList.contains("hide")) {
+    quickActionBar.classList.remove("hide");
+  }
+
   if ((!taskList) instanceof TaskList) {
     return -1;
   }

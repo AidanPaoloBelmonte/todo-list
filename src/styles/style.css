@@ -482,3 +482,8 @@ dialog::backdrop {
     justify-content: center;
     align-items: center;
 }
+
+/* Hide */
+.hide {
+    display: none;
+}
