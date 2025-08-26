@@ -226,7 +226,6 @@ function generateListOverview(priorityFilter = null) {
     } else if (!e.target.classList.contains("list-overview")) {
       let taskEntry = e.target;
       for (let l = 0; l < 4; l++) {
-        console.log(taskEntry);
         if (taskEntry.classList.contains("overview-entry")) {
           break;
         } else if (l == 3) {
@@ -240,6 +239,7 @@ function generateListOverview(priorityFilter = null) {
         let taskList = new TaskList(
           JSON.parse(localStorage[taskEntry.dataset.id]),
         );
+
         clearContent();
         generateTaskListDisplay(taskList);
       }
@@ -249,6 +249,14 @@ function generateListOverview(priorityFilter = null) {
   Object.keys(localStorage).forEach((id) => {
     let taskList = new TaskList(JSON.parse(localStorage[id]));
     let newEntry = taskOverviewEntry.content.cloneNode(true);
+    console.log(
+      priorityFilter,
+      taskList.priority,
+      priorityFilter == taskList.priority,
+    );
+    if (priorityFilter && priorityFilter != taskList.priority) {
+      return;
+    }
 
     newEntry.querySelector(".overview-entry").dataset.id = taskList.id;
 

@@ -1,12 +1,25 @@
 import { TaskList } from "./tasklist";
 import {
+  generateListOverview,
   generateTaskListDisplay,
   clearContent,
   prepareNewListDialog,
 } from "./display";
 
 const sidebar = document.querySelector("#sidebar");
+const tasklists = document.querySelector("#tasklists");
 const categoriesDisplay = sidebar.querySelector("#category-lists");
+
+tasklists.addEventListener("click", (e) => {
+  if (
+    ["all-list", "normal-list", "important-list", "urgent-list"].includes(
+      e.target.id,
+    )
+  ) {
+    clearContent();
+    generateListOverview(e.target.dataset.priority);
+  }
+});
 
 categoriesDisplay.addEventListener("click", (e) => {
   if (e.target.classList.contains("category-header")) {

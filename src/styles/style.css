@@ -86,10 +86,15 @@ body {
 
 .list-entry {
     padding: 4px;
+
+    display: flex;
+    align-items: stretch;
 }
 
 .list-entry button {
     padding: 4px 4px 4px 12px;
+
+    flex: 1 auto;
 }
 
 #category-lists .list-entry,
@@ -109,7 +114,7 @@ body {
 .category-content {
     padding-left: 12px;
 
-    transition: max-height 1509ms;
+    transition: max-height 150ms;
 }
 
 .category-content.content-close {
@@ -407,7 +412,8 @@ dialog::backdrop {
     transition: scale 150ms ease-in-out;
 
     .property-actions {
-        top: 0;
+        top: 6px;
+        right: 6px;
     }
 }
 
