@@ -553,6 +553,10 @@ dialog::backdrop {
 
 .edit {
     background-image: url("../assets/pencil.svg");
+    background-size: 24px;
+
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .remove {
