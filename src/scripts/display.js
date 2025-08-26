@@ -26,6 +26,8 @@ quickActionBar.addEventListener("click", (e) => {
     return;
   }
 
+  console.log(e.target);
+
   if (e.target.id === "new-task") {
     newTaskDialog.showModal();
 

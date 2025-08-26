@@ -49,6 +49,9 @@ body {
 }
 
 #quickbar {
+    flex: 0 100px;
+    width: 250px;
+
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(2, 1fr);
@@ -145,6 +148,42 @@ body {
 
 #topbar h1 {
     margin: 6px;
+}
+
+#toggle-sidebar {
+    flex: 0 24px;
+    align-self: stretch;
+
+    border: 0px;
+    background-color: transparent;
+
+    background-image: url("../assets/menu.svg");
+
+    background-size: 48px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#quick-action {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    button {
+        padding: 24px;
+        border: 0px;
+        background-color: transparent;
+
+        transition: scale 150ms ease-in-out;
+    }
+
+    button:hover {
+        scale: 1.1;
+    }
+
+    button:active {
+        scale: 0.9;
+    }
 }
 
 /* Content */
@@ -485,17 +524,62 @@ dialog::backdrop {
 
 /* Hide */
 .hide {
-    display: none;
+    display: none !important;
 }
 
 /* Icons */
-.edit {
-    background-image: url("../assets/pencil.svg");
-    background-size: 24px;
+.image-button {
+    border: 0px;
+    background-color: transparent;
+
     background-position: center;
     background-repeat: no-repeat;
 }
 
+#new-task {
+    background-image: url("../assets/note-plus-outline.svg");
+    background-size: 36px;
+}
+
+#new-group {
+    background-image: url("../assets/folder-plus-outline.svg");
+    background-size: 36px;
+}
+
+#preferences {
+    background-image: url("../assets/application-cog-outline.svg");
+    background-size: 36px;
+}
+
+.edit {
+    background-image: url("../assets/pencil.svg");
+}
+
 .remove {
     background-image: url("../assets/minus.svg");
+}
+
+#new-list {
+    background-image: url("../assets/receipt-text-plus.svg");
+    background-size: 24px;
+}
+
+#import {
+    background-image: url("../assets/import.svg");
+    background-size: 24px;
+}
+
+#export {
+    background-image: url("../assets/export.svg");
+    background-size: 24px;
+}
+
+#sync {
+    background-image: url("../assets/calendar-sync.svg");
+    background-size: 24px;
+}
+
+#settings {
+    background-image: url("../assets/cog.svg");
+    background-size: 24px;
 }

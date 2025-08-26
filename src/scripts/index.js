@@ -24,7 +24,7 @@ import {
 } from "./display.js";
 import { init, toggle } from "./sidebar.js";
 
-const sidebarButton = document.querySelector("#toggleSidebar");
+const sidebarButton = document.querySelector("#toggle-sidebar");
 
 sidebarButton.addEventListener("click", toggle);
 
