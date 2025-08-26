@@ -188,10 +188,16 @@ body {
 
 /* Content */
 #content {
-    margin-top: 24px;
-    align-self: center;
+    align-self: stretch;
 
-    width: min(750px, 100%);
+    margin-top: 24px;
+
+    display: flex;
+    justify-content: center;
+}
+
+#task-list {
+    flex: 0 750px;
 }
 
 #details {
@@ -439,6 +445,11 @@ dialog::backdrop {
 
 /* Category View*/
 #list-overview {
+    flex: 1;
+    align-self: stretch;
+
+    padding: 0px 16px;
+
     display: grid;
     grid-template-columns: repeat(auto-fit, 300px);
     grid-template-rows: repeat(auto-fit, 200px);
